@@ -1,36 +1,642 @@
-:root{
-  --bg1: #0f172a; /* dark navy */
-  --bg2: #0ea5a6; /* teal */
-  --card: rgba(255,255,255,0.04);
-  --accent: #ffd166;
-  --muted: #cbd5e1;
+/* ============================================================
+   styles.css — Team 23 Messenger Application Homepage
+   EECE/CS-3093C Software Engineering, UC · Summer 2026
+   
+   Design: "Minimal Terminal-Academic"
+   Fonts:  Inter (UI/headings) + JetBrains Mono (meta/code)
+   Palette: Cool dark with cornflower-blue accent
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  /* --- Color --- */
+  --color-bg:           #0f1117;
+  --color-surface:      #1a1d27;
+  --color-surface-2:    #20243a;
+  --color-border:       #2a2d3e;
+  --color-border-light: #353a55;
+  --color-text:         #e2e8f0;
+  --color-muted:        #7c8398;
+  --color-accent:       #5b8dee;
+  --color-accent-dim:   #3d6fd6;
+  --color-accent-glow:  rgba(91, 141, 238, 0.12);
+  --color-accent-glow2: rgba(91, 141, 238, 0.22);
+  --color-role-bg:      rgba(91, 141, 238, 0.1);
+  --color-role-text:    #a8c4f8;
+
+  /* --- Typography --- */
+  --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:  'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* --- Type Scale --- */
+  --text-xs:   0.75rem;     /* 12px */
+  --text-sm:   0.875rem;    /* 14px */
+  --text-base: 1rem;        /* 16px */
+  --text-lg:   1.125rem;    /* 18px */
+  --text-xl:   1.25rem;     /* 20px */
+  --text-2xl:  1.5rem;      /* 24px */
+  --text-3xl:  1.875rem;    /* 30px */
+  --text-4xl:  clamp(2rem, 5vw, 3rem);
+
+  /* --- Spacing (8px base) --- */
+  --space-1:  0.5rem;    /* 8px  */
+  --space-2:  1rem;      /* 16px */
+  --space-3:  1.5rem;    /* 24px */
+  --space-4:  2rem;      /* 32px */
+  --space-6:  3rem;      /* 48px */
+  --space-8:  4rem;      /* 64px */
+  --space-10: 5rem;      /* 80px */
+
+  /* --- Layout --- */
+  --max-width:     860px;
+  --nav-height:    52px;
+
+  /* --- Radius --- */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+
+  /* --- Transitions --- */
+  --transition-fast:   0.12s ease;
+  --transition-base:   0.2s ease;
+  --transition-slow:   0.35s ease;
+
+  /* --- Shadows --- */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.4);
+  --shadow-card-hover: 0 6px 24px rgba(0,0,0,0.5), 0 0 0 1px var(--color-border-light);
 }
 
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; background:linear-gradient(135deg,var(--bg1),#071133 50%); color:var(--muted);}
-body{line-height:1.5;padding:24px}
 
-header{background:linear-gradient(90deg, rgba(14,165,166,0.12), rgba(255,209,102,0.06)); padding:28px; border-radius:12px; color:white; box-shadow:0 6px 18px rgba(2,6,23,0.6);}
-header h1{margin:0 0 6px;font-size:clamp(1.4rem,3vw,2.2rem);letter-spacing:0.6px}
-header p{margin:0;font-size:0.95rem;color:var(--muted)}
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-#team ul{list-style:none;padding:0;margin:12px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-#team li{background:var(--card);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);}
-#team li strong{display:block;color:#fff}
-#team li a{color:var(--accent);text-decoration:none}
+html {
+  scroll-behavior: smooth;
+  /* Offset anchor jumps so sticky nav doesn't cover the target */
+  scroll-padding-top: calc(var(--nav-height) + var(--space-4));
+}
 
-main{margin-top:18px}
-section{margin-bottom:18px;background:transparent;padding:12px}
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-#links a{color:var(--accent)}
+/* Remove list bullets globally — we style lists ourselves */
+ul {
+  list-style: none;
+}
 
-/* Responsive iframe */
-iframe{max-width:100%;height:auto;border-radius:8px;display:block;margin:0 auto}
+/* Base link style */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
 
-footer{margin-top:18px;text-align:center;color:var(--muted)}
+a:hover {
+  color: #85aaff;
+}
 
-/* Small screens tweaks */
-@media (max-width:520px){body{padding:14px} header{padding:18px} #team ul{grid-template-columns:1fr}}
+/* Visible focus for keyboard navigation */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
 
-/* Subtle hover */
-#team li:hover{transform:translateY(-4px);transition:transform .18s ease}
+/* Suppress default <hr> */
+hr {
+  display: none;
+}
+
+
+/* ============================================================
+   3. SKIP LINK (Accessibility)
+   ============================================================ */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-accent);
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  z-index: 1000;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+
+/* ============================================================
+   4. LAYOUT CONTAINER UTILITY
+   ============================================================ */
+.header-inner,
+.nav-inner,
+main,
+footer > p {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+
+/* ============================================================
+   5. HEADER
+   ============================================================ */
+header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--space-8) var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle accent gradient bar at the top edge of header */
+header::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent-dim), var(--color-accent), #a78bfa);
+}
+
+/* Faint radial glow behind the header text */
+header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% -10%, var(--color-accent-glow), transparent 70%);
+  pointer-events: none;
+}
+
+.header-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* "Eyebrow" course label above the title */
+.header-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+header h1 {
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+.header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.header-meta strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   6. NAVIGATION (sticky in-page anchor bar)
+   ============================================================ */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15, 17, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+}
+
+.nav-inner {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+nav a {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition:
+    color var(--transition-base),
+    background var(--transition-base);
+}
+
+nav a:hover {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+nav a:focus-visible {
+  outline-offset: 2px;
+}
+
+
+/* ============================================================
+   7. MAIN CONTENT WRAPPER
+   ============================================================ */
+main {
+  padding-block: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+
+/* ============================================================
+   8. SECTION BASE STYLES
+   ============================================================ */
+main section {
+  /* Sections use their own padding — no extra wrapper needed */
+}
+
+/* Section heading (h2) */
+main section > h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Accent dot before each h2 — the page's signature typographic element */
+main section > h2::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+/* Body copy in sections */
+main section > p {
+  font-size: var(--text-lg);
+  color: var(--color-muted);
+  max-width: 68ch;
+  line-height: 1.75;
+}
+
+
+/* ============================================================
+   9. ABOUT SECTION
+   ============================================================ */
+/* No extra rules needed — inherits section base styles cleanly */
+
+
+/* ============================================================
+   10. TEAM SECTION
+   ============================================================ */
+#team .team-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-3);
+}
+
+.team-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+}
+
+.team-card:hover {
+  border-color: var(--color-border-light);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.team-card-name {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.team-card-role {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-role-text);
+  background: var(--color-role-bg);
+  border: 1px solid rgba(91, 141, 238, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  align-self: flex-start;
+  letter-spacing: 0.03em;
+}
+
+.team-card-email {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-top: auto;
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-border);
+  transition: color var(--transition-fast);
+  word-break: break-all;
+}
+
+.team-card-email:hover {
+  color: var(--color-accent);
+}
+
+
+/* ============================================================
+   11. PROJECT LINKS SECTION
+   ============================================================ */
+.link-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.link-card {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-3);
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    border-color var(--transition-base),
+    background var(--transition-base),
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.link-card:hover {
+  border-left-color: var(--color-accent);
+  background: var(--color-surface-2);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text);
+}
+
+.link-card-label {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.link-card-url {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-card-arrow {
+  font-size: var(--text-lg);
+  color: var(--color-accent);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+}
+
+.link-card:hover .link-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* ============================================================
+   12. VIDEOS SECTION
+   ============================================================ */
+#video .video-block {
+  margin-bottom: var(--space-6);
+}
+
+#video .video-block:last-child {
+  margin-bottom: 0;
+}
+
+#video h3 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.01em;
+}
+
+/* Responsive 16:9 iframe wrapper */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-fallback {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.video-fallback a {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.video-fallback a:hover {
+  color: #85aaff;
+  text-decoration: underline;
+}
+
+
+/* ============================================================
+   13. FOOTER
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-6);
+}
+
+footer p {
+  /* max-width + padding applied via the layout rule in section 4 */
+}
+
+footer small {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   14. REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ============================================================
+   15. RESPONSIVE — Tablet / Mobile
+   ============================================================ */
+
+/* --- 700px: compress link card URL on smaller viewports --- */
+@media (max-width: 700px) {
+  .link-card {
+    grid-template-columns: 1fr auto;
+  }
+
+  .link-card-url {
+    display: none;
+  }
+}
+
+/* --- 600px: major mobile breakpoint --- */
+@media (max-width: 600px) {
+  :root {
+    --space-8: 3rem;
+    --space-10: 3.5rem;
+  }
+
+  .header-inner,
+  .nav-inner,
+  main,
+  footer > p {
+    padding-inline: var(--space-3);
+  }
+
+  header {
+    padding-block: var(--space-6) var(--space-4);
+  }
+
+  .header-meta {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  /* Nav wraps on very small screens */
+  nav {
+    height: auto;
+    padding-block: var(--space-1);
+  }
+
+  html {
+    scroll-padding-top: calc(56px + var(--space-4));
+  }
+
+  .nav-inner {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-block: 4px;
+  }
+
+  /* Team: single column on mobile */
+  #team .team-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* Prevent translateX on mobile (link cards) */
+  .link-card:hover {
+    transform: none;
+  }
+
+  /* Prevent translateY on mobile (team cards) */
+  .team-card:hover {
+    transform: none;
+  }
+}
+
+/* --- 400px: very small phones --- */
+@media (max-width: 400px) {
+  nav a {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+}
