@@ -14,51 +14,47 @@
     2.  [Each member] Search for the word TODO and replace each one with your team's info.
     3.  Keep this file VALID HTML5. You can verify at https://validator.w3.org/
   -->
+
+    <!-- Google Fonts: Inter (UI/body) + JetBrains Mono (code/meta) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+  <!-- Skip-to-content for keyboard/screen reader users -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+ <!-- ===================== HEADER ===================== -->
   <header>
-    <h1>Messenger Application</h1>
-    <p>
-      <strong>Course:</strong> EECE/CS-3093C — Software Engineering, Summer 2026<br>
-      <strong>Instructor:</strong> Dr. Phu Phung<br>
-      <strong>Team:</strong> 23
-    </p>
-    <section id="team">
-      <h2>Team Members</h2>
-      <ul>
-        <li>
-          <strong>Marcus Nguyen</strong> &mdash;
-          <a href="mailto:nguye8tu@mail.uc.edu">nguye8tu@mail.uc.edu</a>
-          (Role: Product Owner)
-        </li>
-        <li>
-          <strong>Luke Falanga</strong> &mdash;
-          <a href="mailto:falanglv@mail.uc.edu">falanglv@mail.uc.edu</a>
-          (Role: Scrum Master)
-        </li>
-        <li>
-          <strong>Connor Slutsky</strong> &mdash;
-          <a href="slutskcp@mail.uc.edu">slutskcp@mail.uc.edu</a>
-          (Role: Member)
-        </li>
-        <li>
-          <strong>Akul Jha</strong> &mdash;
-          <a href="mailto:member4@mail.uc.edu">jhaal@mail.uc.edu</a>
-          (Role: Member)
-        </li>
-        <li>
-          <strong>Ong Jai Sheng</strong> &mdash;
-          <a href="mailto:ongjs@mail.uc.edu">ongjs@mail.uc.edu</a>
-          (Role: Member)
-        </li>
-        <!-- Add or remove a <li> if you have a more or less members. -->
-      </ul>
-    </section>
+    
+   <div class="header-inner">
+      <div class="header-eyebrow">EECE/CS-3093C · Software Engineering · Summer 2026</div>
+      <h1>Messenger Application</h1>
+      <p class="header-meta">
+        <span><strong>Instructor:</strong> Dr. Phu Phung</span>
+        <span><strong>Team:</strong> 23</span>
+      </p>
+    </div>
+    
   </header>
-  <main>
 
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav aria-label="Page sections">
+    <div class="nav-inner">
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+      <a href="#links">Links</a>
+      <a href="#video">Videos</a>
+    </div>
+  </nav>
+
+  <!-- ===================== MAIN ===================== -->
+  <main id="main-content">
+
+    <!-- About -->
     <section id="about">
       <h2>About the Project</h2>
       <p>
@@ -66,74 +62,126 @@
       </p>
     </section>
 
-    <hr>
-
-    <hr>
-
-    <section id="links">
-      <h2>Project Links</h2>
-      <ul>
-        <li>GitHub Repository: <a href="https://github.com/uc-se-sm26-team23/uc-se-sm26-team23.github.io/tree/main" target="_blank"> https://github.com/uc-se-sm26-team23/uc-se-sm26-team23.github.io/tree/main</a></li>
-        <li>GitHub Project Board: <a href="https://github.com/orgs/uc-se-sm26-team23/projects/1" target="_blank"> https://github.com/orgs/uc-se-sm26-team23/projects/1</a></li>
-        <li>Deployed App (Azure App Services): <a href="https://team23-uc-se-messenger.azurewebsites.net/" target="_blank"> https://team23-uc-se-messenger.azurewebsites.net/</a></li>
+    <!-- Team -->
+    <section id="team">
+      <h2>Team Members</h2>
+      <ul class="team-list">
+        <li class="team-card">
+          <div class="team-card-name">Marcus Nguyen</div>
+          <span class="team-card-role">Product Owner</span>
+          <a class="team-card-email" href="mailto:nguye8tu@mail.uc.edu">nguye8tu@mail.uc.edu</a>
+        </li>
+        <li class="team-card">
+          <div class="team-card-name">Luke Falanga</div>
+          <span class="team-card-role">Scrum Master</span>
+          <a class="team-card-email" href="mailto:falanglv@mail.uc.edu">falanglv@mail.uc.edu</a>
+        </li>
+        <li class="team-card">
+          <div class="team-card-name">Connor Slutsky</div>
+          <span class="team-card-role">Member</span>
+          <a class="team-card-email" href="mailto:slutskcp@mail.uc.edu">slutskcp@mail.uc.edu</a>
+        </li>
+        <li class="team-card">
+          <div class="team-card-name">Akul Jha</div>
+          <span class="team-card-role">Member</span>
+          <a class="team-card-email" href="mailto:jhaal@mail.uc.edu">jhaal@mail.uc.edu</a>
+        </li>
+        <li class="team-card">
+          <div class="team-card-name">Ong Jai Sheng</div>
+          <span class="team-card-role">Member</span>
+          <a class="team-card-email" href="mailto:ongjs@mail.uc.edu">ongjs@mail.uc.edu</a>
+        </li>
       </ul>
     </section>
 
-  <!--Sprint Videos embedded section-->
-    <section id="video">
+    <!-- Project Links -->
+    <section id="links">
+      <h2>Project Links</h2>
+      <ul class="link-list">
+        
+        <li>
+          <a class="link-card" href="https://github.com/uc-se-sm26-team23/uc-se-sm26-team23.github.io/tree/main" target="_blank" rel="noopener noreferrer">
+            <span class="link-card-label">GitHub Repository</span>
+            <span class="link-card-url">uc-se-sm26-team23.github.io</span>
+            <span class="link-card-arrow" aria-hidden="true">→</span>
+          </a>
+          
+        </li>
+        
+        <li>
+          <a class="link-card" href="https://github.com/orgs/uc-se-sm26-team23/projects/1" target="_blank" rel="noopener noreferrer">
+            <span class="link-card-label">GitHub Project Board</span>
+            <span class="link-card-url">orgs/uc-se-sm26-team23/projects/1</span>
+            <span class="link-card-arrow" aria-hidden="true">→</span>
+          </a>
+          
+        </li>
+        
+        <li>
+          <a class="link-card" href="https://team23-uc-se-messenger.azurewebsites.net/" target="_blank" rel="noopener noreferrer">
+            <span class="link-card-label">Deployed App</span>
+            <span class="link-card-url">team23-uc-se-messenger.azurewebsites.net</span>
+            <span class="link-card-arrow" aria-hidden="true">→</span>
+          </a>
+          
+        </li>
+      </ul>
+    </section>
 
+    <!--Sprint Videos-->
+    <section id="video">
       <h2>Videos</h2>
 
       <!--Sprint 1 Video-->
-      <h3>Sprint 1 Demo</h3>
-
-      <iframe 
-        width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/P7fdAwvFz7M?si=Rjsb9eC_xkjBIcLv" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>
-      </iframe>
-
-      <p style="margin-top: 10px; font-family: sans-serif; font-size: 14px;">
-        If clicking the above video doesn't work, you can click
-        <a href="https://youtu.be/P7fdAwvFz7M" target="_blank" rel="noopener noreferrer">
-          here
-        </a>
-        to watch on YouTube.
-      </p>
+      <div class="video-block">
+        <h3>Sprint 1</h3>
+        <div class="video-wrapper">
+          <iframe 
+            width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/P7fdAwvFz7M?si=Rjsb9eC_xkjBIcLv" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        
+        <p class="video-fallback">
+          Can't play the video above?
+          <a href="https://youtu.be/P7fdAwvFz7M" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
+        </p>
+      </div>
 
       <!--Sprint 2 Video-->
-      <h3>Sprint 2 Demo</h3>
-
-      <iframe 
-        width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/..." 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>
-      </iframe>
-
-      <p style="margin-top: 10px; font-family: sans-serif; font-size: 14px;">
-        If clicking the above video doesn't work, you can click
-        <a href="https://youtu.be/..." target="_blank" rel="noopener noreferrer">
-          here
-        </a>
-        to watch on YouTube.
-      </p>
+      <div class="video-block">
+        <h3>Sprint 2</h3>
+        <div class="video-wrapper">
+          <iframe 
+            width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/..." 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        
+        <p class="video-fallback">
+          Can't play the video above?
+          <a href="https://youtu.be/..." target="_blank" rel="noopener noreferrer">
+            Watch on YouTube ↗
+          </a>
+        </p>
+      </div>
       
     </section>
-
   </main>
 
-  <hr>
-
+  <!-- ===================== FOOTER ===================== -->
   <footer>
     <p>
       <small>
