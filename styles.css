@@ -640,3 +640,8 @@ footer small {
     padding: 4px 8px;
   }
 }
+
+iframe {
+  border: none;
+}
+
